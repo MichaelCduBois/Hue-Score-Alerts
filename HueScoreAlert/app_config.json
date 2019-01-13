@@ -1,0 +1,21 @@
+{
+    "hue_device_name": "Hue-Score-Alert",
+    "user_token": "PLACEHOLDER",
+    "bridge_ip": "XXX.XXX.XXX.XXX",
+    "headers": {"Content-Type": "application/json"},
+    "nhl_url": "https://statsapi.web.nhl.com/api/v1/",
+    "nhl_team_id": "",
+    "nhl_team_name": "",
+    "nhl_alert_cycles": "",
+    "nhl_alert_color": "",
+    "nhl_alert_style": "",
+    "nfl_url": "http://feeds.nfl.com/feeds-rs/",
+    "nfl_team_id": "",
+    "nfl_team_name": "",
+    "nfl_alert_cycles": "",
+    "nfl_alert_color": "",
+    "nfl_alert_style": "",
+    "alert_selection_type": "",
+    "alert_selection_id": "",
+    "alert_selection_name": ""
+}

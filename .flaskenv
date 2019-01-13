@@ -1,0 +1,2 @@
+export FLASK_APP=HueScoreAlert
+export FLASK_ENV=development
