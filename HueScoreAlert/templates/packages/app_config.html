@@ -1,0 +1,43 @@
+<div id="CONFIGURATION" class="tabcontent">
+    <table align="center">
+        <tr>
+            <td colspan="2" align="center">
+                Bridge IP:
+            </td>
+        </tr>
+        <tr>
+            <form action="{{ url_for('dashboard.set_bridge') }}" method="POST" class="DivContent">
+                <td>
+
+                    <input type="text" name="bridge_ip" placeholder="{{ selections.bridge_ip }}">
+                </td>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </form>
+        </tr>
+    </table>
+    <br />
+    <table align="center">
+        <tr>
+            <td align="center" colspan="3">
+                Config File:
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <form method="POST" action="/config/download">
+                        <input type="submit" value="Download Config" />
+                </form>
+            </td>
+            <form method="POST" action="/config/upload" enctype="multipart/form-data">
+                <td align="center">
+                    <input type="file" name="file" />
+                </td>
+                <td align="center">
+                    <input type="submit" value="Upload Config" />
+                </td>
+            </form>
+        </tr>
+    </table>
+</div>
