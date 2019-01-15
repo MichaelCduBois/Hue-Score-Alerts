@@ -9,9 +9,9 @@ bp = Blueprint('dashboard', __name__)
 @bp.route('/')
 def index():
 
-    configuration = app_config.get()
+    conf = app_config.get()
 
-    if configuration["bridge_ip"] == "XXX.XXX.XXX.XXX":
+    if conf["bridge_ip"] == "XXX.XXX.XXX.XXX":
 
         return render_template('index.html',
                                selections=app_config.get(),
