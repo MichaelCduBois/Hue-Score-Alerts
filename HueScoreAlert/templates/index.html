@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+    <title>Hue Score Alerts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tabs.js') }}"></script>
+</head>
+<section class="content">
+    <div>
+        <table align="center">
+            <tr>
+                <td align="center"><h2>Bridge IP:</h2></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="{{ selections.bridge_ip }}" disabled align="center"></td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <div class="tab" align="center">
+        {% if dashboard_html %}
+        <button class="tablinks" onclick="openTab(event, 'DASHBOARD')" id="defaultOpen">DASHBOARD</button>
+        {% else %}
+        <button class="tablinks" onclick="openTab(event, 'DASHBOARD')" disabled>DASHBOARD</button>
+        {% endif %}
+        {% if nhl_html %}
+        <button class="tablinks" onclick="openTab(event, 'NHL')">NHL</button>
+        {% else %}
+        <button class="tablinks" onclick="openTab(event, 'NHL')" disabled>NHL</button>
+        {% endif %}
+        {% if nfl_html %}
+        <button class="tablinks" onclick="openTab(event, 'NFL')">NFL</button>
+        {% else %}
+        <button class="tablinks" onclick="openTab(event, 'NFL')" disabled>NFL</button>
+        {% endif %}
+        <button class="tablinks" onclick="openTab(event, 'CONFIGURATION')" id="configuration">CONFIGURATION</button>
+    </div>
+    {% if dashboard_html %}
+    {{ dashboard_html }}
+    {% endif %}
+    {% if nhl_html %}
+    {{ nhl_html }}
+    {% endif %}
+    {% if nfl_html %}
+    {{ nfl_html }}
+    {% endif %}
+    {% if config_html %}
+    {{ config_html }}
+    {% endif %}
+    {% if dashboard_html %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/default.js') }}"></script>
+    {% else %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/disabled.js') }}"></script>
+    {% endif %}
+    <h2 class="center">Author Details and Notes</h2>
+</section>
