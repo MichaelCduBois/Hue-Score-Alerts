@@ -16,9 +16,9 @@ def test():
 # Get NFL Teams
 def get_teams():
 
-    configuration = app_config.get()
+    conf = app_config.get()
 
-    response = api.urlopen(configuration["nfl_url"] + "teams.json")
+    response = api.urlopen(conf["nfl_url"] + "teams.json")
 
     team_json = json.loads(response.read().decode())
 
