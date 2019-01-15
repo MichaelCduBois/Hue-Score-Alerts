@@ -1,0 +1,68 @@
+<div id="NFL" class="tabcontent">
+    <form  action="{{ url_for('nfl.save_selections') }}" method="POST" >
+        <table align="center">
+            <tr>
+                <td>
+                    <h3 class="center">Team</h3>
+                </td>
+                <td>
+                    <h3 class="center">Alert Area</h3>
+                </td>
+                <td>
+                    <h3 class="center">Alert Color</h3>
+                </td>
+                <td>
+                    <h3 class="center">Alert Style</h3>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select name="nfl_selection" style="width:175px;">
+                        <option value="none:No Team Selected">-- NFL Selection --</option>
+                        {% for team in nfl_teams %}
+                        <option value="{{ team.abbr }}:{{ team.name }}">{{ team.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select name="lights_selection" style="width:175px;">
+                        <option value="none:none:No Hue Selected">-- Lights Selection --</option>
+                        {% for light in lights %}
+                        <option value="lights:{{ light.id }}:{{ light.name }}">Light: {{ light.name }}</option>
+                        {% endfor %}
+                        {% for group in groups %}
+                        <option value="groups:{{ group.id }}:{{ group.name }}">Group: {{ group.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select name="nfl_selection" style="width:175px;">
+                        <option value="none:No Selection">-- NFL Selection --</option>
+                        {% for team in nfl_teams %}
+                        <option value="{{ team.abbr }}:{{ team.name }}">{{ team.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select name="nfl_selection" style="width:175px;">
+                        <option value="none:No Selection">-- NFL Selection --</option>
+                        {% for team in nfl_teams %}
+                        <option value="{{ team.abbr }}:{{ team.name }}">{{ team.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <table align="center">
+            <tr>
+                <td class="center">
+                    <input type="submit" value="Submit" />
+                </td>
+                <td class="center">
+                    <button type="reset" value="Reset">Reset</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
