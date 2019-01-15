@@ -18,8 +18,6 @@ def index():
                                dashboard_html=None,
                                nhl_html=None,
                                nfl_html=None,
-                               lights=None,
-                               groups=None,
                                config_html=Markup(render_template('packages/app_config.html',
                                                                   selections=app_config.get())))
 
