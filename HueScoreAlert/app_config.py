@@ -8,3 +8,14 @@ def get():
         configuration = json.load(config_file)
 
     return configuration
+
+
+def save(key, value):
+
+    config_json = get()
+
+    config_json[key] = value
+
+    with open("HueScoreAlert/app_config.json", "w") as config_file:
+
+        json.dump(config_json, config_file, indent=4)
