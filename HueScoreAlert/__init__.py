@@ -29,13 +29,17 @@ def create_app(test_config=None):
         pass
 
     # Initial Route Page
-    @app.route('/hello')
-    def hello():
+    @app.route('/test')
+    def test():
 
-        return 'Hello World!'
+        return 'TEST: HueScoreAlerts'
 
     # app_config Import
     from . import app_config
+
+    # dashboard Import
+    from . import dashboard
+    app.register_blueprint(dashboard.bp)
 
     # hue Import
     from . import hue
