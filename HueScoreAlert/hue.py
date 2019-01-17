@@ -1,4 +1,4 @@
-from flask import Blueprint, json
+from flask import Blueprint, current_app, json
 from HueScoreAlert import app_config
 from time import sleep
 import urllib.request as api
@@ -9,7 +9,7 @@ bp = Blueprint('hue', __name__, url_prefix='/hue')
 
 # Initial Route Page
 @bp.route('/test')
-def hello():
+def test():
 
     return 'TEST: Hue'
 
@@ -37,6 +37,15 @@ def create_user():
     elif "error" in status:
 
         return str(status["error"]["description"])
+
+
+def get_colors():
+
+    with current_app.open_resource('colors.json') as color_file:
+
+        colors = json.load(color_file)
+
+        return colors
 
 
 def get_info(selection):
@@ -81,30 +90,28 @@ def trigger(sport):
 
     conf = app_config.get()
 
-    # FixMe - This is PoC. Need to pull from app_config.json instead
-
-    ending = "state" if conf[sport + "_alert_selection_type"] == "lights" else "action"
+    url_end = "state" if conf[sport + "_alert_selection_type"] == "lights" else "action"
 
     url = "http://" + conf["bridge_ip"] + "/api/" + conf["user_token"] + "/" +\
-          conf[sport + "_alert_selection_type"] + "/" + conf[sport + "_alert_selection_id"] + "/" + ending
+          conf[sport + "_alert_selection_type"] + "/" + conf[sport + "_alert_selection_id"] + "/" + url_end
 
-    json_data = {"on": True, "sat": 254, "bri": 254, "hue": 4080, "alert": "select"}
+    json_data = json.loads(conf[sport + "_alert_style"])
 
-    params = json.dumps(json_data).encode("utf-8")
+    cycle = 0
 
-    request = api.Request(url, data=params, headers=conf["headers"], method="PUT")
+    while cycle != conf[sport + "_alert_cycles"]:
 
-    flash = 0
+        for color in json_data:
 
-    while flash != 3:
+            params = json.dumps(color).encode("utf-8")
 
-        api.urlopen(request)
+            request = api.Request(url, data=params, headers=conf["headers"], method="PUT")
 
-        sleep(1.25)
+            api.urlopen(request)
 
-        flash += 1
+        sleep(1)
 
-    # FixMe - This is end of PoC
+        cycle += 1
 
     # Returns to previous state
     params = json.dumps(original_state).encode("utf-8")
