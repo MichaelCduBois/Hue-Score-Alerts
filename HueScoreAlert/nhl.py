@@ -1,11 +1,20 @@
+from celery.app.control import Control
 from datetime import datetime
-from flask import Blueprint, json, Markup, redirect, render_template, request, url_for
-from HueScoreAlert import app_config, hue
+from flask import Blueprint, Flask, json, Markup, redirect, render_template, request, url_for
+from HueScoreAlert import app_config, hue, tasks
 from time import sleep
 import urllib.request as api
 
 # Creates Blueprint
 bp = Blueprint('nhl', __name__, url_prefix='/nhl')
+
+# Setup Celery
+flask_app = Flask(__name__)
+flask_app.config.update(
+    CELERY_BROKER_URL='amqp://localhost//',
+    CELERY_RESULT_BACKEND='amqp://localhost//'
+)
+nhl = tasks.make_celery(flask_app)
 
 
 # Initial Route Page
@@ -48,6 +57,14 @@ def get_html():
 @bp.route('/save', methods=['POST'])
 def save_selections():
 
+    config = app_config.get()
+
+    if config["nhl_task_id"] != "none":
+
+        task_id = config["nhl_task_id"]
+
+        Control(nhl).revoke(task_id, terminate=True, signal='SIGKILL')
+
     # NHL Team Selection
     app_config.save("nhl_team_id", request.form["nhl_selection"].split(':')[0])
     app_config.save("nhl_team_name", request.form["nhl_selection"].split(':')[1])
@@ -62,9 +79,14 @@ def save_selections():
     app_config.save("nhl_alert_color", "No Color Selected")
     app_config.save("nhl_alert_style", "No Style Selected")
 
-    # ToDo - Might need to add config check
+    config = app_config.get()
 
-    # ToDo - Implement Celery
+    # Celery Start Script
+    if config["nhl_team_id"] != "none":
+
+        print("Executing Celery Command")
+
+        start.delay()
 
     return redirect(url_for("dashboard.index"))
 
@@ -72,8 +94,6 @@ def save_selections():
 def next_game_details():
 
     conf = app_config.get()
-
-    # ToDo - Might need to add config check
 
     api_call = api.urlopen(conf["nhl_url"] + "teams/" + conf["nhl_team_id"] + "?expand=team.schedule.next")
 
@@ -106,8 +126,6 @@ def time_to_game(game_date):
 
         print("Seconds to game: " + str(sleep_duration))
 
-        # ToDo - Might need to add config check
-
         sleep(1)
 
         sleep_duration -= 1
@@ -128,7 +146,10 @@ def game_details(game_pk, team):
     return current_score, game_status
 
 
+@nhl.task()
 def start():
+
+    app_config.save("nhl_task_id", start.request.id)
 
     game_pk, game_date, team = next_game_details()
 
@@ -137,8 +158,6 @@ def start():
     current_score, game_status = game_details(game_pk, team)
 
     while game_status != "Final":
-
-        # ToDo - Might need to add config check
 
         new_score, game_status = game_details(game_pk, team)
 
