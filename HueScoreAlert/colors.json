@@ -1,0 +1,81 @@
+[{
+		"name": "Orange",
+		"json": {
+			"on": true,
+			"sat": 254,
+			"bri": 254,
+			"hue": 4080,
+			"alert": "select"
+		}
+	},
+	{
+		"name": "Blue",
+		"json": {
+			"on": true,
+			"sat": 254,
+			"bri": 254,
+			"hue": 47104,
+			"alert": "select"
+		}
+	},
+	{
+		"name": "Red",
+		"json": {
+			"on": true,
+			"sat": 254,
+			"bri": 254,
+			"hue": 0,
+			"alert": "select"
+		}
+	},
+	{
+		"name": "Gold",
+		"json": {
+			"on": true,
+			"sat": 254,
+			"bri": 254,
+			"hue": 9497,
+			"alert": "select"
+		}
+	},
+	{
+		"name": "Yellow",
+		"json": {
+			"on": true,
+			"sat": 254,
+			"bri": 254,
+			"hue": 11350,
+			"alert": "select"
+		}
+	},
+	{
+		"name": "Green",
+		"json": {
+			"on": true,
+			"sat": 254,
+			"bri": 254,
+			"hue": 25600,
+			"alert": "select"
+		}
+	},
+	{
+		"name": "Teal",
+		"json": {
+			"on": true,
+			"sat": 244,
+			"bri": 254,
+			"hue": 37848,
+			"alert": "select"
+		}
+	},
+	{
+		"name": "White",
+		"json": {
+			"on": true,
+			"sat": 55,
+			"bri": 254,
+			"hue": 41008,
+			"alert": "select"
+		}
+	}
+]
