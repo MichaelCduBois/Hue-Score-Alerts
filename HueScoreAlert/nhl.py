@@ -50,7 +50,8 @@ def get_html():
     return Markup(render_template('packages/nhl.html',
                                   nhl_teams=get_teams(),
                                   lights=hue.get_info("lights"),
-                                  groups=hue.get_info("groups")))
+                                  groups=hue.get_info("groups"),
+                                  colors=hue.get_colors()))
 
 
 # Saves NHL Selections
@@ -59,6 +60,7 @@ def save_selections():
 
     config = app_config.get()
 
+    # Stop Celery Worker
     if config["nhl_task_id"] != "none":
 
         task_id = config["nhl_task_id"]
@@ -75,13 +77,34 @@ def save_selections():
     app_config.save("nhl_alert_selection_name", request.form["lights_selection"].split(':')[2])
 
     # NHL Alert Settings
-    app_config.save("nhl_alert_cycles", "none")
-    app_config.save("nhl_alert_color", "No Color Selected")
-    app_config.save("nhl_alert_style", "No Style Selected")
+    app_config.save("nhl_alert_cycles", 3)
+
+    # Alert Color Settings
+    if request.form["color_selection"] == "none":
+
+        app_config.save("nhl_alert_color", "No Color Selected")
+        app_config.save("nhl_alert_style", "No Style Selected")
+
+    elif request.form["color_selection"] == 'Custom':
+
+        app_config.save("nhl_alert_color", "Custom")
+        app_config.save("nhl_alert_style", request.form["custom_alert"])
+
+    else:
+
+        app_config.save("nhl_alert_color", request.form["color_selection"])
+
+        colors = hue.get_colors()
+
+        for color in colors:
+
+            if color["name"] == request.form["color_selection"]:
+
+                app_config.save("nhl_alert_style", color["json"])
 
     config = app_config.get()
 
-    # Celery Start Script
+    # Start Celery Worker
     if config["nhl_team_id"] != "none":
 
         print("Executing Celery Command")
