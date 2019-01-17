@@ -55,7 +55,7 @@ def save_selections():
     app_config.save("nfl_alert_selection_id", request.form["lights_selection"].split(':')[1])
     app_config.save("nfl_alert_selection_name", request.form["lights_selection"].split(':')[2])
 
-    # TBD
+    # NFL Alert Settings
     app_config.save("nfl_alert_cycles", "none")
     app_config.save("nfl_alert_color", "No Color Selected")
     app_config.save("nfl_alert_style", "No Style Selected")
