@@ -1,4 +1,4 @@
-from flask import Blueprint, json, redirect, render_template, url_for
+from flask import Blueprint, json
 from HueScoreAlert import app_config
 from time import sleep
 import urllib.request as api
