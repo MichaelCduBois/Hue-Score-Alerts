@@ -11,9 +11,11 @@
                 <td>
                     <h3 class="center">Alert Color</h3>
                 </td>
+                <!-- Future Update
                 <td>
                     <h3 class="center">Alert Style</h3>
                 </td>
+                -->
             </tr>
             <tr>
                 <td>
@@ -36,13 +38,15 @@
                     </select>
                 </td>
                 <td>
-                    <select name="nfl_selection" style="width:175px;">
-                        <option value="none:No Selection">-- NFL Selection --</option>
-                        {% for team in nfl_teams %}
-                        <option value="{{ team.abbr }}:{{ team.name }}">{{ team.name }}</option>
+                    <select name="color_selection" style="width:175px;">
+                        <option value="No Color Selected">-- Color Selection --</option>
+                        {% for color in colors %}
+                        <option value="{{ color.name }}">{{ color.name }}</option>
                         {% endfor %}
+                        <option value="custom">Custom</option>
                     </select>
                 </td>
+                <!-- Future Update
                 <td>
                     <select name="nfl_selection" style="width:175px;">
                         <option value="none:No Selection">-- NFL Selection --</option>
@@ -50,6 +54,12 @@
                         <option value="{{ team.abbr }}:{{ team.name }}">{{ team.name }}</option>
                         {% endfor %}
                     </select>
+                </td>
+                -->
+            </tr>
+            <tr>
+                <td colspan="3" align="center">
+                    <input id="custom_alert" type="text" value="" placeholder="Enter Custom JSON Here">
                 </td>
             </tr>
         </table>

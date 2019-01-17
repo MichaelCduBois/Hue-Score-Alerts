@@ -53,7 +53,6 @@ def create_app(test_config=None):
     from . import nhl
     app.register_blueprint(nhl.bp)
 
-    # ToDo - Register commands to start celery
     # tasks Import
     from . import tasks
 
