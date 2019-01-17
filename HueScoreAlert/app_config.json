@@ -14,6 +14,7 @@
     "nhl_alert_selection_type": "none",
     "nhl_alert_selection_id": "none",
     "nhl_alert_selection_name": "No Hue Selected",
+    "nhl_task_id": "none",
     "nfl_url": "http://feeds.nfl.com/feeds-rs/",
     "nfl_team_id": "none",
     "nfl_team_name": "No Team Selected",
@@ -22,5 +23,6 @@
     "nfl_alert_style": "No Style Selected",
     "nfl_alert_selection_type": "none",
     "nfl_alert_selection_id": "none",
-    "nfl_alert_selection_name": "No Hue Selected"
+    "nfl_alert_selection_name": "No Hue Selected",
+    "nfl_task_id": "none"
 }
