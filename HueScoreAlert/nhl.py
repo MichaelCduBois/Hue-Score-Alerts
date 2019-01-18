@@ -17,13 +17,6 @@ flask_app.config.update(
 nhl = tasks.make_celery(flask_app)
 
 
-# Initial Route Page
-@bp.route('/test')
-def test():
-
-    return 'TEST: NHL'
-
-
 # Get NHL Teams
 def get_teams():
 
@@ -88,7 +81,7 @@ def save_selections():
     elif request.form["color_selection"] == 'Custom':
 
         app_config.save("nhl_alert_color", "Custom")
-        app_config.save("nhl_alert_style", request.form["custom_alert"])
+        app_config.save("nhl_alert_style", json.loads(request.form["custom_alert"]))
 
     else:
 
