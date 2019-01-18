@@ -28,12 +28,6 @@ def create_app(test_config=None):
 
         pass
 
-    # Initial Route Page
-    @app.route('/test')
-    def test():
-
-        return 'TEST: HueScoreAlerts'
-
     # app_config Import
     from . import app_config
 
