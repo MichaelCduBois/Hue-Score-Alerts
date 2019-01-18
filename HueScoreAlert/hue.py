@@ -7,13 +7,6 @@ import urllib.request as api
 bp = Blueprint('hue', __name__, url_prefix='/hue')
 
 
-# Initial Route Page
-@bp.route('/test')
-def test():
-
-    return 'TEST: Hue'
-
-
 def create_user():
 
     conf = app_config.get()
@@ -84,6 +77,7 @@ def get_state(sport):
     return current_state
 
 
+# ToDo - Add functionality to allow multiple colors
 def trigger(sport):
 
     original_state = get_state(sport)
@@ -95,19 +89,23 @@ def trigger(sport):
     url = "http://" + conf["bridge_ip"] + "/api/" + conf["user_token"] + "/" +\
           conf[sport + "_alert_selection_type"] + "/" + conf[sport + "_alert_selection_id"] + "/" + url_end
 
-    json_data = json.loads(conf[sport + "_alert_style"])
+    try:
+
+        json_data = json.loads(conf[sport + "_alert_style"])
+
+    except TypeError:
+
+        json_data = conf[sport + "_alert_style"]
 
     cycle = 0
 
     while cycle != conf[sport + "_alert_cycles"]:
 
-        for color in json_data:
+        params = json.dumps(json_data).encode("utf-8")
 
-            params = json.dumps(color).encode("utf-8")
+        request = api.Request(url, data=params, headers=conf["headers"], method="PUT")
 
-            request = api.Request(url, data=params, headers=conf["headers"], method="PUT")
-
-            api.urlopen(request)
+        api.urlopen(request)
 
         sleep(1)
 
