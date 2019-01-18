@@ -73,7 +73,7 @@ def save_selections():
     app_config.save("nhl_alert_cycles", 3)
 
     # Alert Color Settings
-    if request.form["color_selection"] == "none":
+    if request.form["color_selection"] == "No Color Selected":
 
         app_config.save("nhl_alert_color", "No Color Selected")
         app_config.save("nhl_alert_style", "No Style Selected")
