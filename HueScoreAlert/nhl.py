@@ -12,7 +12,7 @@ bp = Blueprint('nhl', __name__, url_prefix='/nhl')
 flask_app = Flask(__name__)
 flask_app.config.update(
     CELERY_BROKER_URL='amqp://localhost//',
-    CELERY_RESULT_BACKEND='amqp://localhost//'
+    CELERY_RESULT_BACKEND='rpc://localhost//'
 )
 nhl = tasks.make_celery(flask_app)
 
