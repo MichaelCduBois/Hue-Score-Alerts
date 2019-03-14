@@ -1,6 +1,6 @@
 # Git Ignore
 /__pycache__/
 /HueScoreAlert/__pycache__/
-/.idea/
+/.vscode/
 /instance/
 /venv/
